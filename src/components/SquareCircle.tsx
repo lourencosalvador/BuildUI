@@ -1,15 +1,15 @@
 import { NodeProps,Handle, Position } from "reactflow";
 import {NodeResizer} from "@reactflow/node-resizer"
 import "@reactflow/node-resizer/dist/style.css"
-import { zinc, violet } from "tailwindcss/colors";
+import { violet, rose, zinc } from "tailwindcss/colors";
 import { useColor } from "../hook/SelectColor";
 
-export function Square({selected}: NodeProps){
-     const {cat} = useColor()
+export function SquareCircle({selected}: NodeProps){
+ const {color} = useColor(rose[500])
     return(
         <div 
-        style={{ backgroundColor: `${cat[500]}`}}
-        className=" rounded w-full h-full min-w-[200px] min-h-[200px]">
+        style={{ backgroundColor: `${color[500]}`}}
+        className=" rounded-full w-full h-full min-w-[200px] min-h-[200px]">
 
             <NodeResizer 
               minHeight={200}

@@ -1,6 +1,4 @@
-import React from "react";
 import { EdgeProps, getSmoothStepPath } from "reactflow";
-import { CustomEdgeLabel } from "../TextEdges/textEdges";
 
 export function DefaultEdges({
     id,
@@ -12,6 +10,7 @@ export function DefaultEdges({
     targetPosition,
     style = {},
     markerEnd,
+    animated,
   }: EdgeProps){
  const [edgePath] =  getSmoothStepPath({
     sourceX,
@@ -20,10 +19,11 @@ export function DefaultEdges({
     targetX,
     targetY,
     targetPosition,
+    
  });
  const customStyle = {
-   stroke: 'gray', // Cor cinza para a linha
-   strokeWidth: 2, // Largura da linha (opcional, ajuste conforme necessário)
+   stroke: '#FF0072',
+   strokeWidth: 2, 
    fill: 'none',
  };
 
