@@ -5,10 +5,10 @@ import { violet, rose, zinc } from "tailwindcss/colors";
 import { useColor } from "../hook/SelectColor";
 
 export function SquareCircle({selected}: NodeProps){
- const {color} = useColor(rose[500])
+
     return(
         <div 
-        style={{ backgroundColor: `${color[500]}`}}
+        style={{ backgroundColor: `${rose[500]}`}}
         className=" rounded-full w-full h-full min-w-[200px] min-h-[200px]">
 
             <NodeResizer 

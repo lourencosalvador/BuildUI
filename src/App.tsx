@@ -8,6 +8,7 @@ import * as Toolbar from '@radix-ui/react-toolbar'
 import { PopoverRH } from './components/Popover';
 import { SquareCircle } from './components/SquareCircle';
 import { useColor } from './hook/SelectColor';
+import { colorSelect } from './data';
 
 
 const Node_Types ={
@@ -25,6 +26,7 @@ const Edge_Types = {
 
 function App() {
    const [edges, setEdges, onEdgesChange] = useEdgesState([])
+   const { colorDefinida, setColor } = useColor();
    const [node, setNode, onNodesChange] = useNodesState(
     Initial_Nodes
   )
@@ -32,6 +34,9 @@ function App() {
    const onConnect = useCallback((connection: Connection)=> {
       return setEdges(edges => addEdge(connection, edges))
    }, [])
+   
+  
+
 
 
    function addNewEdge(tipoNode: string){
@@ -64,7 +69,7 @@ function App() {
          defaultEdgeOptions={{
           type: 'default',
          }}
-         style={{ backgroundColor: zinc[800] }}
+         style={{ backgroundColor: colorDefinida  }}
         >
           <Background 
           gap={18}
@@ -95,10 +100,11 @@ function App() {
         </div>
         <div className='fixed flex justify-center items-center top-[40px] left-[1130px] -translate-x-1/2 bg-zinc-700 rounded shadow-lg  px-8  w-[60px] transition-[1s]  h-[50px] hover:h-[170px] overflow-hidden'>
            <h2 className='fixed top-[12px] left-[8px] text-violet-300 font-semibold'>Colors</h2>
-           <ul id='bodyColor'  className='w-auto h-auto fixed top-[80px] left-[7px] flex flex-col gap-2 hover:cursor-pointer'>
-            < li onClick={() => useColor(zinc[500])} className=' w-[50px] h-[20px] bg-zinc-400' title='zinc'/>
-            < li onClick={() => useColor(violet[500])} className=' w-[50px] h-[20px] bg-violet-400' title='violet'/>
-           </ul>
+           <ul id='bodyColor' className='w-auto h-auto fixed top-[80px] left-[7px] flex flex-col gap-2 hover:cursor-pointer'>
+                <li onClick={() => setColor('ROSE')} className='w-[50px] h-[20px] bg-blue-900' title='zinc' />
+                <li onClick={() => setColor('VIOLET')} className='w-[50px] h-[20px] bg-cyan-900' title='violet' />
+                <li onClick={() => setColor('DEFAULT')} className='w-[50px] h-[20px] bg-zinc-400' title='violet' />
+            </ul>
         </div>
       </div>
     </>

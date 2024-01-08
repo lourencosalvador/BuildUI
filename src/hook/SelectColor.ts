@@ -1,10 +1,24 @@
 
 import { useState } from "react";
-import { blue, violet } from "tailwindcss/colors";
+import { Palletecolor, colorSelect } from "../data";
 
-export function useColor(color: string){
-       console.log("a cor seleciona é " + color)
-      return {
-            color
-      }   
+export function useColor() {
+    const [colorDefinida, setColorDefinida] = useState('');
+
+    const setColor = (color: colorSelect) => {
+        if (color === 'VIOLET') {
+            setColorDefinida(Palletecolor.violet);
+            console.log('violet')
+        } else if (color === 'ROSE') {
+            setColorDefinida(Palletecolor.rose);
+            console.log('rose')
+        } else {
+            setColorDefinida(Palletecolor.default); 
+        }
+    };
+
+    return {
+        colorDefinida,
+        setColor
+    };
 }
