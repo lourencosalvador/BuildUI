@@ -2,3 +2,8 @@
 @tailwind utilities;
 @tailwind components;
 
+
+.textR{
+    font-family: 'Rubik', sans-serif;
+}
+
