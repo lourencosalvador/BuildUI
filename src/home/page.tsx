@@ -2,18 +2,20 @@ import 'reactflow/dist/style.css';
 import ReactFlow, { Background, Connection, ConnectionMode, Controls, addEdge, useEdgesState, useNodesState } from 'reactflow';
 import {transparent, violet, zinc} from "tailwindcss/colors"
 import { Square } from '../components/Square';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { DefaultEdges } from '../components/edges/Defalutedges';
 import * as Toolbar from '@radix-ui/react-toolbar'
 import { PopoverRH } from '../components/Popover';
 import { SquareCircle } from '../components/SquareCircle';
 import { useColor } from '../hook/SelectColor';
+import { SquareText } from '../components/SquareText';
 
 
 
 const Node_Types ={
   square: Square,
-  circle: SquareCircle
+  circle: SquareCircle,
+  text: SquareText
 }
 
 const Edge_Types = {
@@ -30,13 +32,26 @@ export default function HomePage() {
    const [node, setNode, onNodesChange] = useNodesState(
     Initial_Nodes
   )
+  const [name, setName] = useState('')
+  const [img, setImg] = useState('')
+  const keyLocal = 'valuesUsers'
+  
+  const GetLocalDados = () => {
+    const storedValues = localStorage.getItem(keyLocal);
+    const parsedValues: { name: string; imgUrl: string; }[] = storedValues ? JSON.parse(storedValues) : [];
+    parsedValues.map((item) => {
+      setName(item.name)
+      setImg(item.imgUrl)
+    })
+  }
    
    const onConnect = useCallback((connection: Connection)=> {
       return setEdges(edges => addEdge(connection, edges))
    }, [])
    
-  
-
+  useEffect(()=> {
+   GetLocalDados()
+  }, [GetLocalDados])
 
 
    function addNewEdge(tipoNode: string){
@@ -79,7 +94,16 @@ export default function HomePage() {
           <Controls 
            color='bg-white'
           />
-         
+           <div className='text-white fixed flex justify-center  w-[450px] px-4 items-center gap-4 ml-[400px] mt-[40px]'>
+           <div className='h-[51px] w-[115px] flex justify-around items-center rounded-[50px] bg-[#FFFFFF1A]'>
+           
+           <img src="./public/seta.svg" alt="img res..." />
+           <img src={img} alt="img res..." className='w-[40px] h-[40px] rounded-full border-[2px] border-violet-400'/>
+           </div>
+              <div className='w-[199px] h-[43px] flex justify-center items-center rounded-[30px] bg-[#F77CB11A]'>
+                <h2 className='text-[12px] text-[#F77CB1] font-medium'>Olá {name}, bem vindo</h2>
+              </div>
+           </div>
         </ReactFlow>
         
 
@@ -89,8 +113,13 @@ export default function HomePage() {
           className='w-32 h-32 bg-violet-500  rounded transition-transform mt-6 hover:-translate-y-2 '
           />
            <Toolbar.Button 
-       onClick={() => addNewEdge('circle')}
+          onClick={() => addNewEdge('circle')}
           className='w-32 h-32 bg-rose-500  rounded-full transition-transform mt-6 hover:-translate-y-2 '
+          />
+           <Toolbar.Button 
+          onClick={() => addNewEdge('text')}
+          className='w-32 h-32 bg-cyan-500  rounded transition-transform mt-6 hover:-translate-y-2 '
+          title='Text Page'
           />
         </Toolbar.Root>
 
